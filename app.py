@@ -1,17 +1,18 @@
+import numpy as np
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 import json
-from flask import Flask
+from flask import Flask, jsonify, render_template
 
-eng = create_engine("postgresql://postgres:postgres@movie-swear-db.cfgivq9r1u3j.us-west-2.rds.amazonaws.com:5432/moviesweardb")
-con = eng.connect()
+database_path = 'movieSwears.db'
+engine = create_engine(f'sqlite:///{database_path}')
 Base = automap_base()
-Base.prepare(eng, reflect=True)
-movieSwear = Base.classes.movieSwear
+Base.prepare(engine, reflect=True)
+movie_swear = Base.classes.movie_swear
 
-session = Session(eng)
+session = Session(engine)
 
 app = Flask(__name__)
 
@@ -23,11 +24,8 @@ def home():
 
 @app.route("/api/v1.0/get_movie_swear")
 def get_movie_swear():
-        session = Session(eng)
-        results = session.execute('SELECT * FROM "movieSwear" Limit 10')
-        
-        # [print(row.items()) for row in results]
-
+        session = Session(engine)
+        results = session.execute("SELECT * FROM movie_swear")
         response = [dict(row.items()) for row in results]
         all_results = json.dumps(response)
 
