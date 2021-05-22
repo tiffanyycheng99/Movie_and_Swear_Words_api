@@ -26,7 +26,7 @@ def get_movie_swear():
         session = Session(eng)
         results = session.execute('SELECT * FROM "movieSwear" Limit 10')
         
-        [print(row.items()) for row in results]
+        # [print(row.items()) for row in results]
 
         response = [dict(row.items()) for row in results]
         all_results = json.dumps(response)
