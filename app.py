@@ -25,7 +25,9 @@ def home():
 def get_movie_swear():
         session = Session(eng)
         results = session.execute('SELECT * FROM "movieSwear"')
-        print(results)
+        
+        [print(row) for row in results]
+
         response = [dict(row.items()) for row in results]
         all_results = json.dumps(response)
 
