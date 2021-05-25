@@ -4,7 +4,7 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 import json
-from flask import Flask, jsonify, render_template
+from flask import Flask
 
 database_path = 'movieSwears.db'
 engine = create_engine(f'sqlite:///{database_path}')
