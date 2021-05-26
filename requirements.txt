@@ -2,4 +2,3 @@ flask
 boto3
 sqlalchemy
 numpy
-psycopg2
